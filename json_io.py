@@ -4,8 +4,8 @@
 # BSD license.
 # Author: Ali Baharev <ali.baharev@gmail.com>
 from __future__ import print_function
-from cjson import decode as loads, encode as dumps
-#from json import loads, dumps  # if you don't have cjson installed
+#from cjson import decode as loads, encode as dumps
+from json import loads, dumps  # if you don't have cjson installed
 from contextlib import contextmanager
 from inspect import getmembers, getmodule, isfunction
 from platform import system
