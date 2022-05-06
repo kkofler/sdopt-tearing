@@ -497,7 +497,7 @@ def from_numpy_matrix(A, parallel_edges=False, create_using=None):
     # coordinates will become the edges in the graph.
     edges = zip(*(np.asarray(A).nonzero()))
     # handle numpy constructed data type
-    if python_type is 'void':
+    if python_type == 'void':
         # Sort the fields by their offset, then by dtype, then by name.
         fields = sorted((offset, dtype, name) for name, (dtype, offset) in
                         A.dtype.fields.items())

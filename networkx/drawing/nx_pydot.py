@@ -182,7 +182,7 @@ def to_pydot(N, strict=True):
 
     name = N.name
     graph_defaults=N.graph.get('graph',{})
-    if name is '':
+    if name == '':
         P = pydotplus.Dot('', graph_type=graph_type, strict=strict,
                       **graph_defaults)
     else:
