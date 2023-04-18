@@ -11,9 +11,9 @@ Exact and heuristic methods for tearing
 Many of the implemented algorithms are described in the following academic 
 papers (submitted, only drafts are available on these links):
 
-  - `An exact method for the minimum feedback arc set problem <http://reliablecomputing.eu/baharev_minimum_feedback_arc_set.pdf>`_
-  - `Decomposition methods for solving nonlinear systems of equations <http://reliablecomputing.eu/baharev_tearing_survey.pdf>`_
-  - `Ordering matrices to bordered lower triangular form with minimal border width <http://reliablecomputing.eu/baharev_tearing_exact_algorithm.pdf>`_
+  - `An exact method for the minimum feedback arc set problem <https://baharev.info/publications/baharev_minimum_feedback_arc_set.pdf>`_
+  - `Decomposition methods for solving nonlinear systems of equations <https://baharev.info/publications/baharev_tearing_survey.pdf>`_
+  - `Ordering matrices to bordered lower triangular form with minimal border width <https://baharev.info/publications/baharev_tearing_exact_algorithm.pdf>`_
 
 See also `Reproducing the results of the academic papers <https://github.com/baharev/sdopt-tearing#reproducing-the-results-of-the-minimum-feedback-arc-set-paper>`_.
 
@@ -21,7 +21,7 @@ The source code of the prototype implementation is
 `available on GitHub <https://github.com/baharev/sdopt-tearing#exact-and-heuristic-methods-for-tearing>`_ 
 under the 3-clause BSD license. The code is a work in progress. Some of the code
 will be contributed back to 
-`NetworkX <http://networkx.github.io/documentation/latest/overview.html>`_
+`NetworkX <https://networkx.org/>`_
 wherever it is appropriate. The remaining part of the code will be released as a 
 Python package on PyPI.  In the meantime, the :file:`rpc_api.py` is a good place 
 to start looking. (:file:`rpc` stands for remote procedure call; it can be 
@@ -67,8 +67,8 @@ You find the source code of the demo application in :file:`demo.py`.
 1. Input: flattened Modelica model
 ----------------------------------
 
-The `Modelica <https://www.modelica.org/>`_ model :file:`data/demo.mo` has 
-already been flattened with the `JModelica <http://www.jmodelica.org/>`_ 
+The `Modelica <https://modelica.org/>`_ model :file:`data/demo.mo` has 
+already been flattened with the `JModelica <https://jmodelica.org/>`_ 
 compiler by calling :func:`compile_fmux`; check the :mod:`flatten` and 
 :mod:`fmux_creator` modules for details. **The demo application takes the 
 flattened model as input.** The `OpenModelica Compiler 
@@ -131,8 +131,8 @@ Modelica model.
 
 
 The expression trees of the equations are `symbolically manipulated 
-<http://docs.sympy.org/latest/tutorial/manipulation.html>`_  with `SymPy 
-<http://www.sympy.org/>`_ to **determine which variables can be explicitly and 
+<https://docs.sympy.org/latest/tutorial/manipulation.html>`_  with `SymPy 
+<https://www.sympy.org/>`_ to **determine which variables can be explicitly and 
 safely eliminated from which equations.** An example for unsafe elimination is 
 the rearrangement of ``x*y=1`` to ``y=1/x`` if ``x`` may potentially take on the 
 value ``0``. Unsafe eliminations are automatically recognized and avoided; these 
@@ -191,7 +191,7 @@ shown below for your convenience.
    Hierarchical tearing with the natural block structure
 
 Further details are discussed in 
-`Tearing systems of nonlinear equations I. A survey <http://reliablecomputing.eu/baharev_tearing_survey.pdf>`_
+`Tearing systems of nonlinear equations I. A survey <https://baharev.info/publications/baharev_tearing_survey.pdf>`_
 under *7.3. Hierarchical tearing*.
 
 .. _tearing-in-Modelica:
@@ -200,14 +200,14 @@ under *7.3. Hierarchical tearing*.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 First, the undirected bipartite graph representation of the system of equations 
-is oriented with `matching <http://en.wikipedia.org/wiki/Matching_%28graph_theory%29>`_;
+is oriented with `matching <https://en.wikipedia.org/wiki/Matching_%28graph_theory%29>`_;
 in other words, the undirected graph is made directed. Then, the strongly 
 connected components (SCC) of this directed graph are identified. This way of 
 identifying the SCCs is also referred to as **block lower triangular 
 decomposition (BLT decomposition)** or Dulmage-Mendelsohn decomposition. **After 
 finishing the BLT decomposition, a subset of the edges is torn within each SCC to 
 make them acyclic.** Greedy heuristics, for example 
-`variants of Cellier's heuristic <http://dx.doi.org/10.1145/2666202.2666204>`_, 
+`variants of Cellier's heuristic <https://dx.doi.org/10.1145/2666202.2666204>`_, 
 are used to find a tear set with small cardinality. This approach can produce 
 unsatisfactory results if the system has large strongly connected components. 
 An example is shown below.
@@ -247,7 +247,7 @@ independent of the size of the column.**
 ------------------------------------------------
 
 **Our ultimate goal is to reduce a large, sparse system of equations to a small
-one.** To this end, `AMPL <http://en.wikipedia.org/wiki/AMPL>`_
+one.** To this end, `AMPL <https://en.wikipedia.org/wiki/AMPL>`_
 code is generated in such a way that the variables can be eliminated as 
 desired. After the elimination, **the reduced system has as many variables and 
 equations as the number of spike columns.** An AMPL code snippet is shown 
@@ -286,9 +286,9 @@ The Python code only serves to cross-check correctness.
 -----------------------------
 
 **A greedy tearing heuristic has been implemented, inspired by** `algorithm 
-(2.3) of Fletcher and Hall <http://dx.doi.org/10.1007/BF02025533>`_. The 
+(2.3) of Fletcher and Hall <https://dx.doi.org/10.1007/BF02025533>`_. The 
 heuristic resembles the `minimum degree algorithm 
-<http://en.wikipedia.org/wiki/Minimum_degree_algorithm>`_, but it also works for 
+<https://en.wikipedia.org/wiki/Minimum_degree_algorithm>`_, but it also works for 
 highly unsymmetric matrices. The implemented heuristic does not need or use any 
 block structure. When breaking ties in the greedy choice, **a lookahead step can 
 improve the quality of the ordering**.
@@ -330,7 +330,7 @@ counts as a spike.
 
 **In abstract terms, this kind of tearing is equivalent to the** `minimum 
 feedback arc set (MFAS) problem 
-<http://en.wikipedia.org/wiki/Feedback_arc_set>`_, the complement problem
+<https://en.wikipedia.org/wiki/Feedback_arc_set>`_, the complement problem
 is known as the **maximum acyclic subgraph problem**. 
 Compared to :ref:`the tearing methods of Modelica tools <tearing-in-Modelica>`, 
 the differences are: (1) the graph is already oriented (directed), and 
@@ -361,12 +361,12 @@ Finding the optimal solution to tearing is NP-complete and approximation
 resistant. Therefore, **a comprehensive benchmark suite has to be established,**
 and then the various heuristics can be evaluated to see which one works well in 
 practice. `The COCONUT benchmark suite 
-<http://www.mat.univie.ac.at/~neum/glopt/coconut/Benchmark/Benchmark.html>`_ 
+<https://www.mat.univie.ac.at/~neum/glopt/coconut/Benchmark/Benchmark.html>`_ 
 will be used for evaluating heuristics that do not require the natural block 
 structure. **I hope to receive help from the Modelica community to establish a 
 test set** where the :ref:`natural block structure <natural-block-structure>` is 
 available. Dr.-Ing. Michael Sielemann (Technical Director for Aeronautics and 
-Space at `Modelon Deutschland GmbH <http://www.modelon.com/>`_) has already 
+Space at `Modelon Deutschland GmbH <https://modelon.com/>`_) has already 
 offered his kind help.
 
 --------------------------------------------------------------------------------
@@ -387,8 +387,8 @@ Improving numerical stability
 
 **Tearing can yield small but very ill-conditioned systems**; as a consequence, 
 the final reduced systems can be notoriously difficult or even impossible to 
-solve. **Our recent publications** `[1] <http://dx.doi.org/10.1002/aic.14305>`_ 
-**and** `[2] <http://reliablecomputing.eu/baharev_manifold_based_starting_points.pdf>`_  
+solve. **Our recent publications** `[1] <https://dx.doi.org/10.1002/aic.14305>`_ 
+**and** `[2] <https://link.springer.com/article/10.1007/s11075-016-0249-x>`_  
 **show how this well-known numerical issue of tearing can be resolved.** The cost of the 
 improved numerical stability is the significantly increased computation time. 
 
@@ -415,14 +415,14 @@ Source code generation for reverse mode automatic differentiation
 -----------------------------------------------------------------
 
 The Jacobian is required when solving the subproblems with a solver like `IPOPT 
-<https://projects.coin-or.org/Ipopt>`_.
+<https://github.com/coin-or/Ipopt>`_.
 **Generating C++ source code for evaluating the Jacobian of the subproblems is 
 certainly not the main difficulty here:** The primary challenge is to design an 
 API that makes it easy to work with subproblems, and that makes the interfacing 
 with various solvers only moderately painful.
 
 **I am not aware of any** `automatic 
-differentiation <http://en.wikipedia.org/wiki/Automatic_differentiation>`_ 
+differentiation <https://en.wikipedia.org/wiki/Automatic_differentiation>`_ 
 **package that would fulfill the requirements** :ref:`listed above 
 <handling-subproblems>`, so I have set out to write my own. The diagonal blocks 
 of the Jacobian will be obtained with reverse mode automatic differentiation. 
@@ -446,11 +446,11 @@ the following Python code is generated (hand-edited to improve readability) ::
     u5 = 2.0 * u3  # df/dy = 2*exp(3*x+2*y)
 
 **This code was automatically generated** with 
-the sibling package `SDOPT <https://sdopt.readthedocs.org>`_.
+the sibling package `SDOPT <https://sdopt.readthedocs.io/en/latest/>`_.
 
 The templated C++ version of this code will greatly benefit from code 
 optimization performed by the C++ compiler, especially from `constant folding 
-and constant propagation <http://en.wikipedia.org/wiki/Constant_folding>`_. 
+and constant propagation <https://en.wikipedia.org/wiki/Constant_folding>`_. 
 I expect the generated assembly code to be as good as hand-written.
 
 --------------------------------------------------------------------------------
